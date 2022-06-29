@@ -4,12 +4,13 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.25.2",
+    "eslint": "^8.18.0",
     "nuxt": "3.0.0-rc.4"
-  },
-  "dependencies": {
-    "eslint": "^8.18.0"
   }
 }
