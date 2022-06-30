@@ -1,19 +1,5 @@
 <script setup lang="ts">
-enum Gender {
-  GIRL = 'Girl',
-  BOY = 'Boy',
-  UNISEX = 'Unisex',
-}
-enum Popularity {
-  TRENDY = 'Trendy',
-  UNIQUE = 'Unique',
-
-}
-enum Length {
-  SHORT = 'Short',
-  ALL = 'All',
-  LONG = 'Long',
-}
+import { Gender, Length, Popularity, names } from '@/data'
 
 interface OptionsState {
   gender: string
@@ -26,6 +12,20 @@ const options = ref<OptionsState>({
   popularity: Popularity.TRENDY,
   length: Length.LONG,
 })
+
+const selectedNames = ref<string[]>([])
+
+const computeSelectedNames = () => {
+  const filteredNames = names
+    .filter(name => name.gender === options.value.gender)
+    .filter(name => name.popularity === options.value.popularity)
+    .filter((name) => {
+      if (options.value.length === Length.ALL)
+        return true
+      else return name.length === options.value.length
+    })
+  selectedNames.value = filteredNames.map(name => name.name)
+}
 </script>
 
 <template>
@@ -99,6 +99,15 @@ const options = ref<OptionsState>({
           </button>
         </div>
       </div>
+      <button class="primary" @click="computeSelectedNames">
+        Find names
+      </button>
+    </div>
+    <div class="cards-container">
+      <div v-for="name in selectedNames" :key="name" class="card">
+        <p>x</p>
+        <h4>{{ name }}</h4>
+      </div>
     </div>
   </div>
 </template>
@@ -153,5 +162,40 @@ h1 {
 .option-active {
   background-color:rgb(249, 87, 89);
   color: white;
+}
+
+.primary {
+  background-color: rgb(249,87,89);
+  color: white;
+  border-radius: 6.5rem;
+  border: none;
+  padding: 0.75rem 4rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+   cursor: pointer
+}
+
+.cards-container {
+  display: flex;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: rgb(27, 60, 138);
+  width: 28%;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+  position: relative
+}
+.card p {
+  position: absolute;
+  top: -28%;
+  left: 92.5%;
+  cursor: pointer;
+  color: rgba(255,255,255,0.178)
 }
 </style>
