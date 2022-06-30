@@ -1,8 +1,30 @@
 <script setup lang="ts">
-const options = ref({
-  gender: 'Girl',
-  popularity: 'Unique',
-  length: 'Short',
+enum Gender {
+  GIRL = 'Girl',
+  BOY = 'Boy',
+  UNISEX = 'Unisex',
+}
+enum Popularity {
+  TRENDY = 'Trendy',
+  UNIQUE = 'Unique',
+
+}
+enum Length {
+  SHORT = 'Short',
+  ALL = 'All',
+  LONG = 'Long',
+}
+
+interface OptionsState {
+  gender: string
+  popularity: string
+  length: string
+}
+
+const options = ref<OptionsState>({
+  gender: Gender.GIRL,
+  popularity: Popularity.TRENDY,
+  length: Length.LONG,
 })
 </script>
 
@@ -16,19 +38,19 @@ const options = ref({
         <div class="option-buttons">
           <button
             class="option option-left"
-            :class="options.gender === 'Boy' && 'option-active'"
+            :class="options.gender === Gender.BOY && 'option-active'"
           >
             Boy
           </button>
           <button
             class="option"
-            :class="options.gender === 'Unisex' && 'option-active'"
+            :class="options.gender === Gender.UNISEX && 'option-active'"
           >
             Unisex
           </button>
           <button
             class="option option-right"
-            :class="options.gender === 'Girl' && 'option-active'"
+            :class="options.gender === Gender.GIRL && 'option-active'"
           >
             Girl
           </button>
@@ -37,10 +59,10 @@ const options = ref({
       <div class="option-container">
         <h4>2) Choose the name's popularity</h4>
         <div class="option-buttons">
-          <button class="option option-left" :class="options.popularity === 'Trendy' && 'option-active'">
+          <button class="option option-left" :class="options.popularity === Popularity.TRENDY && 'option-active'">
             Trendy
           </button>
-          <button class="option option-right" :class="options.popularity === 'Unique' && 'option-active'">
+          <button class="option option-right" :class="options.popularity === Popularity.UNIQUE && 'option-active'">
             Unique
           </button>
         </div>
@@ -48,13 +70,13 @@ const options = ref({
       <div class="option-container">
         <h4>2) Choose name's length</h4>
         <div class="option-buttons">
-          <button class="option option-left" :class="options.length === 'Long' && 'option-active'">
+          <button class="option option-left" :class="options.length === Length.LONG && 'option-active'">
             Long
           </button>
-          <button class="option" :class="options.length === 'All' && 'option-active'">
+          <button class="option" :class="options.length === Length.ALL && 'option-active'">
             All
           </button>
-          <button class="option option-right" :class="options.length === 'Short' && 'option-active'">
+          <button class="option option-right" :class="options.length === Length.SHORT && 'option-active'">
             Short
           </button>
         </div>
